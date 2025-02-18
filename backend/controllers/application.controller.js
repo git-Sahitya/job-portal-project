@@ -56,7 +56,7 @@ export const getAppliedJobs = async (req, res) => {
       .populate({
         path: "job",
         options: { sort: { createdAt: -1 } },
-        populate: { path: " company", options: { sort: { createdAt: -1 } } },
+        populate: { path: "company", options: { sort: { createdAt: -1 } } },
       });
     if (!applications) {
       return res
@@ -79,8 +79,8 @@ export const getAppliedJobs = async (req, res) => {
 export const getApplicants = async (req, res) => {
   try {
     const jobId = req.params.id;
-    const job = Job.findById(jobId).populate({
-      path: "applications",
+    const job = await Job.findById(jobId).populate({
+      path: "application",
       options: { sort: { createdAt: -1 } },
       populate: { path: "applicant", options: { sort: { createdAt: -1 } } },
     });
@@ -106,7 +106,7 @@ export const getApplicants = async (req, res) => {
 
 export const updateStatus = async (req, res) => {
   try {
-    const { status } = req.params;
+    const { status } = req.body;
     const applicationId = req.params.id;
     if (!status) {
       return res.status(400).json({

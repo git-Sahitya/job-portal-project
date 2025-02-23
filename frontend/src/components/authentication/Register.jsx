@@ -91,7 +91,7 @@ function Register() {
           {/* already account then login */}
           <p className="text-gray-500 text-center text-sm my-2">
             Already have an account? {" "}
-            <Link to="/login" className="text-blue-700  ">
+            <Link to="/login" className="text-blue-700 font-semibold ">
               Login
             </Link>
           </p>

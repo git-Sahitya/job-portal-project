@@ -3,8 +3,21 @@ import Navbar from "../components_lite/Navbar";
 import { Input } from "../ui/input";
 import { RadioGroup } from "@radix-ui/react-radio-group";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Register() {
+function Login() {
+
+const [input, setInput] = useState({
+  fullname : "",
+  email : "",
+  password : "",
+  phoneNumber : "",
+  file : "",
+
+})
+
+
+
   return (
     <div>
       <Navbar />
@@ -64,21 +77,27 @@ function Register() {
           {/* register button */}
           <button
             type="submit"
-            className=" block w-3/4 py-3 my-3 text-white bg-blue-500 hover:bg-blue-700 rounded-md"
+            className=" block w-3/4 py-3 my-3 text-white flex justify-center items-center max-w-7xl mx-auto bg-blue-500 hover:bg-blue-700 rounded-md"
           >
             Login
           </button>
           {/* no account then register */}
-          <p className="text-gray-500 text-sm my-2">
-            Do not have an account yet?
+          <p className="text-gray-500 text-sm my-2 text-center">
+          Create new account
             <Link to="/register" className="text-blue-700 ">
-              Register
+            <button
+            type="submit"
+            className=" block w-1/2 py-3 my-3 text-white flex justify-center items-center bg-green-500 max-w-7xl mx-auto hover:bg-green-700 rounded-md"
+          >
+         Register
+          </button>
             </Link>
           </p>
         </form>
       </div>
     </div>
+
   );
 }
 
-export default Register;
+export default Login;

@@ -116,7 +116,7 @@ function Login() {
           {/* register button */}
           <button
             type="submit"
-            className=" block w-3/4 py-3 my-3 text-white flex justify-center items-center max-w-7xl mx-auto bg-blue-500 hover:bg-blue-700 rounded-md"
+            className="  w-3/4 py-3 my-3 text-white flex justify-center items-center max-w-7xl mx-auto bg-blue-500 hover:bg-blue-700 rounded-md"
           >
             Login
           </button>
@@ -126,7 +126,7 @@ function Login() {
             <Link to="/register" className="text-blue-700 ">
               <button
                 type="submit"
-                className=" block w-1/2 py-3 my-3 text-white flex justify-center items-center bg-green-500 max-w-7xl mx-auto hover:bg-green-700 rounded-md"
+                className="  w-1/2 py-3 my-3 text-white flex justify-center items-center bg-green-500 max-w-7xl mx-auto hover:bg-green-700 rounded-md"
               >
                 Register
               </button>

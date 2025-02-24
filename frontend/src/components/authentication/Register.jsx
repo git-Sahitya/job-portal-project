@@ -7,6 +7,8 @@ import { useState } from "react";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
 
 function Register() {
   const [input, setInput] = useState({
@@ -19,6 +21,10 @@ function Register() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const {loading } = useSelector((store)=> store.auth)
+
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -41,6 +47,8 @@ function Register() {
       formData.append("file", input.file);
     }
     try {
+            dispatch(setLoading(true))
+      
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -56,6 +64,9 @@ function Register() {
       const errorMessage = error.responce ? error.responce.data.message : "An unexpexcted error occurred."
       toast.error(errorMessage)
     }
+    finally{
+          dispatch(setLoading(false))
+        }
   };
 
   return (
@@ -167,12 +178,21 @@ function Register() {
             />
           </div>
           {/* register button */}
-          <button
+          {loading ? (
+            <div className="flex items-center justify-center my-10">
+              <div className="spinner-border text-blue-600" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            <button
             type="submit"
             className=" block w-full py-3 my-3 text-white bg-blue-500 hover:bg-blue-700 rounded-md"
           >
             Register
           </button>
+          )}
+          
           {/* already account then login */}
           <p className="text-gray-500 text-center text-sm my-2">
             Already have an account?{" "}

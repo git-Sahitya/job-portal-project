@@ -7,6 +7,8 @@ import { useState } from "react";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data.js";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
 
 function Login() {
   const [input, setInput] = useState({
@@ -16,6 +18,8 @@ function Login() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const {loading } = useSelector((store)=> store.auth)
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -25,6 +29,7 @@ function Login() {
     e.preventDefault();
 
     try {
+      dispatch(setLoading(true))
       const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
         headers: {
           "Content-Type": "application/json",
@@ -39,6 +44,9 @@ function Login() {
       console.log(error);
       const errorMessage = error.responce ? error.responce.data.message : "An unexpexcted error occurred."
       toast.error(errorMessage)
+    }
+    finally{
+      dispatch(setLoading(false))
     }
   };
 
@@ -112,14 +120,23 @@ function Login() {
               </div>
             </RadioGroup>
           </div>
-
           {/* register button */}
-          <button
-            type="submit"
-            className="  w-3/4 py-3 my-3 text-white flex justify-center items-center max-w-7xl mx-auto bg-blue-500 hover:bg-blue-700 rounded-md"
-          >
-            Login
-          </button>
+          {loading ? (
+            <div className="flex items-center justify-center my-10">
+              <div className="spinner-border text-blue-600" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="submit"
+              className="w-3/4 py-3 my-3 text-white flex items-center justify-center max-w-7xl mx-auto bg-blue-600 hover:bg-blue-800/90 rounded-md"
+            >
+              Login
+            </button>
+          )}
+
+          
           {/* no account then register */}
           <p className="text-gray-500 text-sm my-2 text-center">
             Create new account

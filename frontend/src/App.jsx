@@ -5,6 +5,7 @@ import Home from "./components/components_lite/Home";
 import PrivacyPolicy from "./components/components_lite/PrivacyPolicy";
 import TermsOfService from "./components/components_lite/TermsofService";
 import Jobs from "./components/components_lite/Jobs.jsx";
+import Browse from "./components/components_lite/Browse";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -32,6 +33,10 @@ const App = () => {
     {
       path: "/Jobs",
       element: <Jobs />,
+    },
+    {
+      path: "/Browse",
+      element: <Browse />,
     },
     
   ]);

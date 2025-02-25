@@ -34,12 +34,12 @@ const Categories = () => {
           Explore our extensive job market.
         </p>
       </div>
-      <Carousel className="w-full   max-w-xl  mx-auto my-10">
+      <Carousel className="w-full max-w-xl  mx-auto my-10 ">
         <CarouselContent>
           {Category.map((category, index) => {
             return (
               <CarouselItem key={index} className="md:basis-1/2 lg-basis-1/3 ">
-                <Button> {category} </Button>
+                <Button className="bg-[#474D52] text-white"> {category} </Button>
               </CarouselItem>
             );
           })}

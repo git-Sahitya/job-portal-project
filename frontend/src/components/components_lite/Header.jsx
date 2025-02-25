@@ -11,9 +11,9 @@ const Header = () => {
           <RiHomeOfficeFill  className="mt-[5px] mr-2 text-[#614232]"/>
            <span> No.1 Job Hunt Website</span>
           </h2>
-          <h2 className="text-5xl font-bold">
+          <h2 className="text-5xl font-bold text-[#6A38C2]">
             Search,Apply & <br />
-            Get Your <span className="text-[#6A38C2]">Dream Job</span>
+            Get Your <span className="text-[#FA4F09]">Dream Job</span>
           </h2>
           <p>
             Start your hunt for the best, life-changing career opportunities
@@ -26,7 +26,7 @@ const Header = () => {
               placeholder="Find your dream Jobs"
               className="outline-none  border-none w-full"
             />
-            <Button className="rounded-r-full  "> 
+            <Button className="rounded-r-full bg-[#3A3F43] "> 
             <Search className="h-5 w-5 "/>
             </Button>
           </div>

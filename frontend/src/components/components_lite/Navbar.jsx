@@ -17,10 +17,10 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="flex items-center gap-6">
-          <ul className="flex font-medium items-center gap-6">
-            <Link to={"/"}>Home</Link>
-            <Link to={"/Browse"}>Browse</Link>
-            <Link to={"/Jobs"}>Jobs</Link>
+          <ul className="flex font-medium items-center gap-6 ">
+            <Link className="hover:underline" to={"/"}>Home</Link>
+            <Link className="hover:underline"  to={"/Browse"}>Browse</Link>
+            <Link className="hover:underline"  to={"/Jobs"}>Jobs</Link>
           </ul>
           {!user ? (
             <div className="flex items-center gap-2 ">
@@ -68,7 +68,7 @@ const Navbar = () => {
                 <div className="flex flex-col text-gray-600">
                   <div className="flex w-fit my-2 items-center gap-2 cursor-pointer">
                     <User2></User2>
-                    <Button variant="link">Profile</Button>
+                    <Button variant="link"><Link to={"/Profile"}>Profile</Link></Button>
                   </div>
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <LogOut></LogOut>

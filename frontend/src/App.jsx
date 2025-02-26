@@ -6,6 +6,7 @@ import PrivacyPolicy from "./components/components_lite/PrivacyPolicy";
 import TermsOfService from "./components/components_lite/TermsofService";
 import Jobs from "./components/components_lite/Jobs.jsx";
 import Browse from "./components/components_lite/Browse";
+import Profile from "./components/components_lite/Profile";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -37,6 +38,10 @@ const App = () => {
     {
       path: "/Browse",
       element: <Browse />,
+    },
+    {
+      path: "/Profile",
+      element: <Profile />,
     },
     
   ]);

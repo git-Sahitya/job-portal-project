@@ -7,6 +7,7 @@ import TermsOfService from "./components/components_lite/TermsofService";
 import Jobs from "./components/components_lite/Jobs.jsx";
 import Browse from "./components/components_lite/Browse";
 import Profile from "./components/components_lite/Profile";
+import Description from "./components/ui/Description";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -22,6 +23,10 @@ const App = () => {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/description/:id",
+      element: <Description />,
     },
     {
       path: "/PrivacyPolicy",

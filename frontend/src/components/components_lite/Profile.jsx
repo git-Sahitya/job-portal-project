@@ -4,7 +4,11 @@ import { Button } from "../ui/button";
 import Navbar from "./Navbar";
 import { Badge } from "../ui/badge";
 import AppliedJob from "./AppliedJob";
+import { useState } from "react";
+import EditProfileModel from "./EditProfileModel";
+import { useSelector } from "react-redux";
 
+ {/*  
 const skills = [
   "HTML",
   "CSS",
@@ -18,8 +22,11 @@ const skills = [
   "Github",
   "Tailwind CSS",
 ];
+*/}
+const isResume = true;
 const Profile = () => {
-  const isResume = true;
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((store) => store.auth);
   return (
     <div>
       <Navbar />
@@ -37,35 +44,38 @@ const Profile = () => {
             </Avatar>
 
             <div>
-              <h1 className="font-medium text-xl">Full Name</h1>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod
-                suscipit at minus mollitia vel nemo voluptates nobis! Ratione
-                sit reiciendis voluptates ab unde mollitia incidunt illum earum,
-                quia numquam repellat.
-              </p>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
-          <Button className="text-right " variant="outline">
+          <Button
+            onClick={() => setOpen(true)}
+            className="text-right "
+            variant="outline"
+          >
             <Pen />
           </Button>
         </div>
         <div className="my-5">
           <div className=" flex items-center gap-3 my-2">
             <Mail />
-            <span className="">Sahi@gmail.com</span>
+            <span className="">
+              <a href={`mailto:${user?.email}`}>{user?.email}</a>
+            </span>
           </div>
           <div className=" flex items-center gap-3 my-2">
             <Contact />
-            <span className="">+919876543210</span>
+            <span className="">
+              <a href={`tel:${user?.phoneNumber}`}>{user?.phoneNumber}</a>
+            </span>
           </div>
         </div>
         <div>
           <div className="my-5">
             <h1 className="font-semibold ">Skills</h1>
             <div className="flex items-center  gap-1 my-1">
-              {skills.length !== 0 ? (
-                skills.map((item, index) => (
+              {user?.profile?.skills.length !== 0 ? (
+                user?.profile?.skills.map((item, index) => (
                   <Badge
                     className="bg-zinc-600 hover:bg-[#32c686] cursor-pointer hover:"
                     key={index}
@@ -99,11 +109,13 @@ const Profile = () => {
           </div>
         </div>
       </div>
-        <div className="max-w-4xl mx-auto bg-white rounded-2xl">
-          <h1 className=" text-lg  my-5 font-semibold">Applied Jobs</h1>
-          {/* Application Table */}
-          <AppliedJob/>
-        </div>
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl">
+        <h1 className=" text-lg  my-5 font-semibold">Applied Jobs</h1>
+        {/* Application Table */}
+        <AppliedJob />
+      </div>
+      {/* Edit profile Model */}
+      <EditProfileModel open={open} setOpen={setOpen} />
     </div>
   );
 };

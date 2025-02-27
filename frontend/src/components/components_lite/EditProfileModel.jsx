@@ -13,6 +13,8 @@ import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data";
 import { toast } from "sonner";
 import { setUser } from "@/redux/authSlice";
+import { Button } from "../ui/button";
+import { Loader2 } from "lucide-react";
 
 const EditProfileModel = ({open , setOpen}) => {
   const [loading, setLoading] = useState(false);
@@ -181,19 +183,15 @@ const EditProfileModel = ({open , setOpen}) => {
               {/* end */}
             </div>
             <DialogFooter>
-              {loading ? (
-                <div className="flex items-center justify-center my-10">
-                  <div className="spinner-border text-blue-600" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </div>
+            {loading ? (
+                <Button className="w-full my-4">
+                  {" "}
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait{" "}
+                </Button>
               ) : (
-                <button
-                  type="submit"
-                  className="w-3/4 py-3 my-3 text-white flex items-center justify-center max-w-7xl mx-auto bg-blue-500 hover:bg-blue-800 rounded-md"
-                >
+                <Button type="submit" className="w-full my-4">
                   Save
-                </button>
+                </Button>
               )}
             </DialogFooter>
           </form>

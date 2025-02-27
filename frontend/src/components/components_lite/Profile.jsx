@@ -97,7 +97,11 @@ const Profile = () => {
               {isResume ? (
                 <a
                   target="_blank"
-                  href={"http://github.com/git-Sahitya"}
+                  href={
+                    user?.profile?.resume
+                    ? user?.profile?.resume
+                    : "https://github.com/git-Sahitya"
+                  }
                   className="text-blue-600 hover:underline cursor-pointer"
                 >
                   Download

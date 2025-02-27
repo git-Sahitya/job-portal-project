@@ -1,6 +1,10 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloud.js"
+
+
 
 // This code is for signUp register user
 
@@ -57,7 +61,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
-   // console.log(email, password, role);
+    // console.log(email, password, role);
 
     if (!email || !password || !role) {
       return res.status(404).json({
@@ -132,7 +136,7 @@ export const login = async (req, res) => {
 
 // Logout code start here
 
-export const logout = async (req,res) => {
+export const logout = async (req, res) => {
   try {
     return res.status(200).cookie("token", "", { maxAge: 0 }).json({
       message: "Logged out successfully",
@@ -155,12 +159,14 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-    
+
+    // cloudinary upload
+
+    const fileUri = getDataUri(file);
+    const clodinaryResponse = await cloudinary.uploader.upload(fileUri.content);
 
     const userId = req.id; // middleware authentication
     const user = await User.findById(userId);
-
-    // cloudinary upload
 
     if (!user) {
       return res.status(404).json({
@@ -177,6 +183,12 @@ export const updateProfile = async (req, res) => {
     if (skills) user.profile.skills = skills.split(",");
 
     // resume
+    if (clodinaryResponse) {
+      user.profile.resume = clodinaryResponse.secure_url;
+      user.profile.resumeOriginalName = file.originalname;
+    }
+
+    //Save updated user
     await user.save();
 
     const updatedUser = {

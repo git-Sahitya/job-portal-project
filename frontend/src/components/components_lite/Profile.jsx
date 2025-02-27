@@ -8,21 +8,7 @@ import { useState } from "react";
 import EditProfileModel from "./EditProfileModel";
 import { useSelector } from "react-redux";
 
- {/*  
-const skills = [
-  "HTML",
-  "CSS",
-  "Javascript",
-  "ReactJs",
-  "NodeJs",
-  "ExpressJs",
-  "MongoDB",
-  "mySQL",
-  "git",
-  "Github",
-  "Tailwind CSS",
-];
-*/}
+
 const isResume = true;
 const Profile = () => {
   const [open, setOpen] = useState(false);
@@ -39,6 +25,7 @@ const Profile = () => {
             <Avatar className="cursor-pointer w-24 h-24">
               <AvatarImage
                 src="https://avatars.githubusercontent.com/u/166967863?v=4"
+               //  src={user?.profile?.profilePhoto}
                 alt="@shadcn"
               />
             </Avatar>

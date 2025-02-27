@@ -83,14 +83,15 @@ const Navbar = () => {
                   <Avatar>
                     <AvatarImage
                       className="cursor-pointer w-16 rounded-full "
+                      //src={user?.profile?.profilePhoto}
                       src="https://github.com/shadcn.png"
                       alt="@shadcn"
                     />
                   </Avatar>
                   <div>
-                    <h1 className="font-medium">Sahitya Singh</h1>
+                    <h1 className="font-medium">{user?.fullname}</h1>
                     <p className="text-sm text-muted-foreground">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    {user?.profile?.bio}
                     </p>
                   </div>
                 </div>

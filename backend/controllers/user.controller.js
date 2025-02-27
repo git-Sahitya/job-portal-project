@@ -2,9 +2,8 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
-import cloudinary from "../utils/cloud.js"
-
-
+import cloudinary from "../utils/cloud.js";
+import { log } from "console";
 
 // This code is for signUp register user
 
@@ -19,9 +18,6 @@ export const register = async (req, res) => {
         success: false,
       });
     }
-           const file = req.file
-           const fileUri = getDataUri(file)
-           const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
 
     // now checking user come with same emailId ??
 
@@ -32,6 +28,19 @@ export const register = async (req, res) => {
         success: false,
       });
     }
+    // pofile photo to cloudinary
+
+    const file = req.file;
+    if (!file) {
+      return res.status(400).json({
+        message: "Profile image is required",
+        success: false,
+      });
+    }
+
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     // convert password to hash
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -43,9 +52,9 @@ export const register = async (req, res) => {
       phoneNumber,
       password: hashedPassword,
       role,
-      profile : {
-        profilePhoto : cloudResponse.secure_url
-      }
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
     await newUser.save();
     return res.status(201).json({

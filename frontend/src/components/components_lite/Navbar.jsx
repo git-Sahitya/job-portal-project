@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white  ">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
         <div>
           <h1 className="text-2xl  font-bold">
@@ -40,7 +40,7 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="flex items-center gap-6">
-          <ul className="flex font-medium items-center gap-6 ">
+          <ul className="flex font-medium items-center gap-6  ">
             <Link className="hover:underline" to={"/"}>
               Home
             </Link>
@@ -73,7 +73,7 @@ const Navbar = () => {
                 <Avatar>
                   <AvatarImage
                     className="cursor-pointer w-8  rounded-full "
-                    src="https://github.com/shadcn.png"
+                    src={user?.profile?.profilePhoto}
                     alt="@shadcn"
                   />
                 </Avatar>
@@ -83,8 +83,7 @@ const Navbar = () => {
                   <Avatar>
                     <AvatarImage
                       className="cursor-pointer w-16 rounded-full "
-                      //src={user?.profile?.profilePhoto}
-                      src="https://github.com/shadcn.png"
+                      src={user?.profile?.profilePhoto}
                       alt="@shadcn"
                     />
                   </Avatar>

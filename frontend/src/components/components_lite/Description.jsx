@@ -4,18 +4,51 @@ import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { JOB_API_ENDPOINT } from "@/utils/data";
+import { JOB_API_ENDPOINT, APPLICATION_API_ENDPOINT } from "@/utils/data";
 import { setSingleJob } from "@/redux/jobSlice";
+import { toast } from "sonner";
+
 const Description = () => {
   const params = useParams();
   const jobId = params.id;
-
   const { singleJob } = useSelector((store) => store.job);
-
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { user } = useSelector((store) => store.auth);
+
+  const isInitiallyApplied =
+    singleJob?.application?.some(
+      (application) => application.applicant === user?._id
+    ) || false;
+
+  const [isApplied, setIsApplied] = useState(isInitiallyApplied);
+
+  // Create a apply button function
+
+  const applyJobHandler = async () => {
+    try {
+      const res = await axios.get(
+        `${APPLICATION_API_ENDPOINT}/apply/${jobId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.success) {
+        setIsApplied(true);
+        const updateSingleJob = {
+          ...singleJob,
+          application: [...singleJob.application, { applicant: user?._id }],
+        };
+        dispatch(setSingleJob(updateSingleJob));
+        console.log(res.data);
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+      toast.error(error.response.data.message);
+    }
+  };
 
   useEffect(() => {
     const fetchSingleJobs = async () => {
@@ -29,6 +62,11 @@ const Description = () => {
         if (res.data.status) {
           // Updated success check
           dispatch(setSingleJob(res.data.job));
+          setIsApplied(
+            res.data.job.application.some(
+              (application) => application.applicant === user?._id
+            )
+          );
         } else {
           setError("Failed to fetch jobs.");
         }
@@ -46,11 +84,6 @@ const Description = () => {
   if (!singleJob) {
     return <div>Loading...</div>;
   }
-
-  const isApplied =
-    singleJob.application?.some(
-      (application) => application.applicant === user?._id
-    ) || false;
 
   return (
     <div>
@@ -75,6 +108,7 @@ const Description = () => {
           </div>
           <div>
             <Button
+              onClick={isApplied ? null : applyJobHandler}
               disabled={isApplied}
               className={`rounded-lg ${
                 isApplied

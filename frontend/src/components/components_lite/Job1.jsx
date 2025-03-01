@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "react-router-dom";
-import PropTypes from 'prop-types';
 
 const Job1 = ({ job }) => {
   const navigate = useNavigate();
@@ -71,20 +70,6 @@ const Job1 = ({ job }) => {
     </div>
   );
 };
-Job1.propTypes = {
-  job: PropTypes.shape({
-    createdAt: PropTypes.string,
-    company: PropTypes.shape({
-      name: PropTypes.string,
-    }),
-    title: PropTypes.string,
-    description: PropTypes.string,
-    position: PropTypes.string,
-    salary: PropTypes.string,
-    location: PropTypes.string,
-    jobType: PropTypes.string,
-    _id: PropTypes.string,
-  }),
-};
+
 
 export default Job1;

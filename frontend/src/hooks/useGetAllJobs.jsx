@@ -1,11 +1,13 @@
 import { setAllJobs } from "@/redux/jobSlice";
 import { JOB_API_ENDPOINT } from "@/utils/data";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const useGetAllJobs = () => {
     const dispatch =  useDispatch()
+    const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchAllJobs = async () => {
@@ -16,17 +18,28 @@ const useGetAllJobs = () => {
         });
         console.log("API Response:", res.data);
         if (res.data.status) {
-            dispatch(setAllJobs(res.data.jobs))
-            console.log(res.data.jobs);
-            
+          // Updated success check
+          dispatch(setAllJobs(res.data.jobs));
+        } else {
+          setError("Failed to fetch jobs.");
         }
-        
       } catch (error) {
-        console.log( "Fetch Error:",error);
+        console.error("Fetch Error:", error);
+        setError(error.message || "An error occurred.");
+      } finally {
+        setLoading(false);
       }
     };
-    fetchAllJobs()
+
+    fetchAllJobs();
   } , [dispatch]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
   return null;
 };
 

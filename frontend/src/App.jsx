@@ -7,7 +7,7 @@ import TermsOfService from "./components/components_lite/TermsofService";
 import Jobs from "./components/components_lite/Jobs.jsx";
 import Browse from "./components/components_lite/Browse";
 import Profile from "./components/components_lite/Profile";
-import Description from "./components/ui/Description";
+import Description from "./components/components_lite/Description";
 const App = () => {
   // create a router by using react-router-dom
 

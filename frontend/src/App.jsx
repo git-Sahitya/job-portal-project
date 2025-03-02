@@ -9,6 +9,8 @@ import Browse from "./components/components_lite/Browse";
 import Profile from "./components/components_lite/Profile";
 import Description from "./components/components_lite/Description";
 import Companies from "./components/admincomponent/Companies";
+import CompanyCreate from "./components/admincomponent/CompanyCreate";
+import CompanySetup from "./components/admincomponent/CompanySetup";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -50,8 +52,22 @@ const App = () => {
       element: <Profile />,
     },
     {
+      path: "/Home",
+      element: <Home />,
+    },
+
+    // admin
+    {
       path: "/admin/companies",
       element: <Companies />,
+    },
+    {
+      path: "/admin/companies/create",
+      element: <CompanyCreate />,
+    },
+    {
+      path: "/admin/companies/:id",
+      element: <CompanySetup />,
     },
     
   ]);

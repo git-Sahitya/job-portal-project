@@ -8,6 +8,7 @@ import Jobs from "./components/components_lite/Jobs.jsx";
 import Browse from "./components/components_lite/Browse";
 import Profile from "./components/components_lite/Profile";
 import Description from "./components/components_lite/Description";
+import Companies from "./components/admincomponent/Companies";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -47,6 +48,10 @@ const App = () => {
     {
       path: "/Profile",
       element: <Profile />,
+    },
+    {
+      path: "/admin/companies",
+      element: <Companies />,
     },
     
   ]);

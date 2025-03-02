@@ -41,15 +41,41 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-6">
           <ul className="flex font-medium items-center gap-6  ">
-            <Link className="hover:underline" to={"/"}>
-              Home
-            </Link>
-            <Link className="hover:underline" to={"/Browse"}>
-              Browse
-            </Link>
-            <Link className="hover:underline" to={"/Jobs"}>
-              Jobs
-            </Link>
+            {user && user.role === "Recruiter" ? (
+              <>
+                <li>
+                  <Link className="hover:underline" to={"/admin/companies"}>
+                    Companies
+                  </Link>
+                </li>
+                <li>
+                  <Link className="hover:underline" to={"/admin/jobs"}>
+                    Job
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  {" "}
+                  <Link className="hover:underline" to={"/"}>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link className="hover:underline" to={"/Browse"}>
+                    Browse
+                  </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link className="hover:underline" to={"/Jobs"}>
+                    Jobs
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
           {!user ? (
             <div className="flex items-center gap-2 ">
@@ -90,17 +116,21 @@ const Navbar = () => {
                   <div>
                     <h1 className="font-medium">{user?.fullname}</h1>
                     <p className="text-sm text-muted-foreground">
-                    {user?.profile?.bio}
+                      {user?.profile?.bio}
                     </p>
                   </div>
                 </div>
+
                 <div className="flex flex-col text-gray-600">
-                  <div className="flex w-fit my-2 items-center gap-2 cursor-pointer">
-                    <User2></User2>
-                    <Button variant="link">
-                      <Link to={"/Profile"}>Profile</Link>
-                    </Button>
-                  </div>
+                  {user && user.role === "Student" && (
+                    <div className="flex w-fit my-2 items-center gap-2 cursor-pointer">
+                      <User2></User2>
+                      <Button variant="link">
+                        <Link to={"/Profile"}>Profile</Link>
+                      </Button>
+                    </div>
+                  )}
+
                   <div className="flex w-fit items-center gap-2 cursor-pointer">
                     <LogOut></LogOut>
                     <Button onClick={logoutHandler} variant="link">

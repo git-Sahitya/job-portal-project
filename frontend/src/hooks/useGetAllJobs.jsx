@@ -33,14 +33,8 @@ const useGetAllJobs = () => {
 
     fetchAllJobs();
   } , [dispatch]);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-  return null;
+  
+  return {loading , error};
 };
 
 export default useGetAllJobs;

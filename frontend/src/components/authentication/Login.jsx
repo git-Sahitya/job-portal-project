@@ -3,7 +3,7 @@ import Navbar from "../components_lite/Navbar";
 import { Input } from "../ui/input";
 import { RadioGroup } from "@radix-ui/react-radio-group";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data.js";
 import { toast } from "sonner";
@@ -19,7 +19,7 @@ function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const {loading } = useSelector((store)=> store.auth)
+  const {loading , user } = useSelector((store)=> store.auth)
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -42,14 +42,18 @@ function Login() {
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log(error);
-      const errorMessage = error.responce ? error.responce.data.message : "An unexpexcted error occurred."
-      toast.error(errorMessage)
+      toast.error("Login failed")
     }
     finally{
       dispatch(setLoading(false))
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div>

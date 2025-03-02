@@ -3,7 +3,7 @@ import Navbar from "../components_lite/Navbar";
 import { Input } from "../ui/input";
 import { RadioGroup } from "@radix-ui/react-radio-group";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/data";
 import { toast } from "sonner";
@@ -21,10 +21,9 @@ function Register() {
   });
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const {loading } = useSelector((store)=> store.auth)
-
+  const { loading } = useSelector((store) => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -47,8 +46,8 @@ function Register() {
       formData.append("file", input.file);
     }
     try {
-            dispatch(setLoading(true))
-      
+      dispatch(setLoading(true));
+
       const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -61,13 +60,20 @@ function Register() {
       }
     } catch (error) {
       console.log(error);
-      const errorMessage = error.responce ? error.responce.data.message : "An unexpexcted error occurred."
-      toast.error(errorMessage)
+      const errorMessage = error.responce
+        ? error.responce.data.message
+        : "An unexpexcted error occurred.";
+      toast.error(errorMessage);
+    } finally {
+      dispatch(setLoading(false));
     }
-    finally{
-          dispatch(setLoading(false))
-        }
-  };
+  }; 
+  const { user } = useSelector((store) => store.auth);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div>
@@ -186,13 +192,13 @@ function Register() {
             </div>
           ) : (
             <button
-            type="submit"
-            className=" block w-full py-3 my-3 text-white bg-blue-500 hover:bg-blue-700 rounded-md"
-          >
-            Register
-          </button>
+              type="submit"
+              className=" block w-full py-3 my-3 text-white bg-blue-500 hover:bg-blue-700 rounded-md"
+            >
+              Register
+            </button>
           )}
-          
+
           {/* already account then login */}
           <p className="text-gray-500 text-center text-sm my-2">
             Already have an account?{" "}

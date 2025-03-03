@@ -13,6 +13,7 @@ import CompanyCreate from "./components/admincomponent/CompanyCreate";
 import CompanySetup from "./components/admincomponent/CompanySetup";
 import AdminJobs from "./components/admincomponent/AdminJobs";
 import PostJob from "./components/admincomponent/PostJob";
+import Applicants from "./components/admincomponent/Applicants";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -75,10 +76,13 @@ const App = () => {
       path: "/admin/jobs",
       element: <AdminJobs />,
     },
-
     {
       path: "/admin/jobs/create",
-      element: < PostJob />,
+      element: <PostJob />,
+    },
+    {
+      path: "/admin/jobs/:id/applicants",
+      element: <Applicants />,
     },
   ]);
 

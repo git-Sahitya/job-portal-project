@@ -11,6 +11,7 @@ import Description from "./components/components_lite/Description";
 import Companies from "./components/admincomponent/Companies";
 import CompanyCreate from "./components/admincomponent/CompanyCreate";
 import CompanySetup from "./components/admincomponent/CompanySetup";
+import AdminJobs from "./components/admincomponent/AdminJobs";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -68,6 +69,10 @@ const App = () => {
     {
       path: "/admin/companies/:id",
       element: <CompanySetup />,
+    },
+    {
+      path: "/admin/jobs",
+      element: <AdminJobs />,
     },
     
   ]);

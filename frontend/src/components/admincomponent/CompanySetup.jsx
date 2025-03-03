@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components_lite/Navbar";
 import { Button } from "../ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import axios from "axios";
@@ -13,8 +13,8 @@ import useGetCompanyById from "@/hooks/useGetCompanyById";
 
 const CompanySetup = () => {
   const params = useParams();
-  useGetCompanyById(params.id)
-  
+  useGetCompanyById(params.id);
+
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -23,7 +23,7 @@ const CompanySetup = () => {
     file: null,
   });
   const { singleCompany } = useSelector((store) => store.company);
-  
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -75,7 +75,7 @@ const CompanySetup = () => {
       setLoading(false);
     }
   };
- 
+
   useEffect(() => {
     setInput({
       name: singleCompany.name || "",
@@ -154,11 +154,18 @@ const CompanySetup = () => {
                 onChange={changeFileHandler}
               />
             </div>
-            {/* Submit Button */}
           </div>
-          <Button type="submit" className="w-full mt-8 ">
-            Update
-          </Button>
+          {/* Submit Button */}
+          {loading ? (
+            <Button className="w-full my-4">
+              <Loader2 className="mr02 h-4 w-4 animate-spin" />
+              Please wait
+            </Button>
+          ) : (
+            <Button type="submit" className="w-full my-4 ">
+              Update
+            </Button>
+          )}
         </form>
       </div>
     </div>

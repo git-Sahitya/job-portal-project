@@ -29,7 +29,7 @@ const Job1 = ({ job }) => {
       <div className="flex items-center gap-2 my-2">
         <Button className="p-6 " variant="outline" size="icon">
           <Avatar>
-            <AvatarImage src="https://static.vecteezy.com/system/resources/previews/013/061/846/non_2x/job-logo-design-job-search-icon-with-magnifying-glass-choose-people-for-hire-symbol-job-or-employee-logo-vector.jpg" 
+            <AvatarImage src={job?.company?.logo} 
             alt="Company logo"/>
           </Avatar>
         </Button>
@@ -45,7 +45,7 @@ const Job1 = ({ job }) => {
       </div>
       <div className="flex gap-2 items-center mt-4">
         <Badge className={"text-[#6B3AC2] font-bold "} variant={"ghost"}>
-          {job?.position} Positions
+          {job?.position} Open Positions
         </Badge>
         <Badge className={"text-[#FA4F09] font-bold "} variant={"ghost"}>
           {job?.salary}LPA

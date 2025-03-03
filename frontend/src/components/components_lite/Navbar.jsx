@@ -50,7 +50,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <Link className="hover:underline" to={"/admin/jobs"}>
-                    Job
+                    Jobs
                   </Link>
                 </li>
               </>

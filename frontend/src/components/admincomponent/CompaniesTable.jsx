@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,11 +12,33 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Edit2, MoreHorizontal } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CompaniesTable = () => {
-  const { companies } = useSelector((store) => store.company);
-  console.log( companies);
-  
+  const { companies, searchCompanyByText } = useSelector(
+    (store) => store.company
+  );
+  const [filterCompany, setFilterCompany] = useState(companies);
+  const navigate = useNavigate()
+  useEffect(() => {
+    const filteredCompany =
+      companies.length >= 0 &&
+      companies.filter((company) => {
+        if (!searchCompanyByText) {
+          return true;
+        }
+        return company.name
+          ?.toLowerCase()
+          .includes(searchCompanyByText.toLowerCase());
+      });
+    setFilterCompany(filteredCompany);
+  }, [companies, searchCompanyByText]);
+
+  console.log("COMPANIES", companies);
+  if (!companies) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <Table>
@@ -30,14 +52,14 @@ const CompaniesTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {!companies || companies.length <= 0 ? (
+          {filterCompany.length === 0 ? (
             <span> No Companies added</span>
           ) : (
             <>
               {" "}
-              {companies.map((company, index) => {
+              {filterCompany.map((company) => {
                 return (
-                  <div key={company._id}  >
+                  <TableRow key={company._id}>
                     <TableCell>
                       <Avatar>
                         <AvatarImage
@@ -46,7 +68,7 @@ const CompaniesTable = () => {
                         />
                       </Avatar>
                     </TableCell>
-                    <TableCell >{company.name}</TableCell>
+                    <TableCell>{company.name}</TableCell>
                     <TableCell>{company.createdAt.split("T")[0]}</TableCell>
                     <TableCell className=" text-right cursor-pointer">
                       <Popover>
@@ -54,14 +76,14 @@ const CompaniesTable = () => {
                           <MoreHorizontal />
                         </PopoverTrigger>
                         <PopoverContent className="w-22 h-12">
-                          <div className="flex items-center gap-2 w-fit cursor-pointer">
+                          <div onClick={()=> navigate(`/admin/companies/${company._id}`)} className="flex items-center gap-2 w-fit cursor-pointer">
                             <Edit2 className="w-4" />
                             <span>Edit</span>
                           </div>
                         </PopoverContent>
                       </Popover>
                     </TableCell>
-                  </div>
+                  </TableRow>
                 );
               })}
             </>

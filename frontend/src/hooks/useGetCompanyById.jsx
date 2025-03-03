@@ -12,26 +12,26 @@ const useGetCompanyById = (companyId) => {
   useEffect(() => {
     const fetchSingleCompany = async () => {
       try {
-        const res = await axios.get(`${COMPANY_API_ENDPOINT}/get/${companyId}`, {
-          withCredentials: true,
-        });
-        console.log("API Response:", res.data);
-        if (res.data.status) {
-          // Updated success check
-          dispatch(setSingleCompany(res.data.company));
-        } else {
-          setError("Failed to fetch jobs.");
-        }
+        const res = await axios.get(
+          `${COMPANY_API_ENDPOINT}/get/${companyId}`,
+          {
+            withCredentials: true,
+          }
+        );
+        dispatch(setSingleCompany(res.data.company));
+       
       } catch (error) {
         console.error("Fetch Error:", error);
-        setError(error.message || "An error occurred.");
       } finally {
         setLoading(false);
       }
     };
+    if (companyId) {
+      fetchSingleCompany();
+    }
 
     fetchSingleCompany();
-  }, [ companyId ,dispatch]);
+  }, [companyId, dispatch]);
 
   return { loading, error };
 };

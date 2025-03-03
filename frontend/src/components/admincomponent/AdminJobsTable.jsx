@@ -18,11 +18,9 @@ const AdminJobsTable = () => {
   const { companies, searchCompanyByText } = useSelector(
     (store) => store.company
   );
-  const { allAdminJobs , searchJobByText } = useSelector((store) => store.job);
+  const { allAdminJobs, searchJobByText } = useSelector((store) => store.job);
   const [filterJobs, setFilterJobs] = useState(allAdminJobs);
   const navigate = useNavigate();
-
-
 
   useEffect(() => {
     const filteredJobs =
@@ -32,12 +30,12 @@ const AdminJobsTable = () => {
           return true;
         }
         return (
-            job.title?.toLowerCase().includes(searchJobByText.toLowerCase()) ||
-            job?.company?.name
-              .toLowerCase()
-              .includes(searchJobByText.toLowerCase())
-          );
-        });
+          job.title?.toLowerCase().includes(searchJobByText.toLowerCase()) ||
+          job?.company?.name
+            .toLowerCase()
+            .includes(searchJobByText.toLowerCase())
+        );
+      });
     setFilterJobs(filteredJobs);
   }, [allAdminJobs, searchJobByText]);
 
@@ -75,7 +73,7 @@ const AdminJobsTable = () => {
                         <PopoverTrigger>
                           <MoreHorizontal />
                         </PopoverTrigger>
-                        <PopoverContent className="w-fit" >
+                        <PopoverContent className="w-fit">
                           <div
                             onClick={() =>
                               navigate(`/admin/companies/${job._id}`)
@@ -86,11 +84,12 @@ const AdminJobsTable = () => {
                             <span>Edit</span>
                           </div>
                           <hr />
-                          <div 
-                          onClick={()=>{
-                            navigate(`/admin/jobs/${job._id}/applicants`)
-                          }}
-                          className="flex items-center mt-2 gap-2 w-fit cursor-pointer">
+                          <div
+                            onClick={() => {
+                              navigate(`/admin/jobs/${job._id}/applicants`);
+                            }}
+                            className="flex items-center mt-2 gap-2 w-fit cursor-pointer"
+                          >
                             <Eye className="w-5"></Eye>
                             <span>Applicants</span>
                           </div>

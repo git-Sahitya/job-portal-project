@@ -9,13 +9,11 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   const searchjobHandler = () => {
-    dispatch(setSearchQuery(query))
-    setQuery("")
-      navigate("/browse")
+    dispatch(setSearchQuery(query));
+    navigate("/browse");
   };
 
   return (

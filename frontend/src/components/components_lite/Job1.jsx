@@ -29,8 +29,7 @@ const Job1 = ({ job }) => {
       <div className="flex items-center gap-2 my-2">
         <Button className="p-6 " variant="outline" size="icon">
           <Avatar>
-            <AvatarImage src={job?.company?.logo} 
-            alt="Company logo"/>
+            <AvatarImage src={job?.company?.logo} alt="Company logo" />
           </Avatar>
         </Button>
 
@@ -71,6 +70,5 @@ const Job1 = ({ job }) => {
     </div>
   );
 };
-
 
 export default Job1;

@@ -34,9 +34,18 @@ const AppliedJob = () => {
                 <TableCell>{appliedJob.job?.title}</TableCell>
                 <TableCell>{appliedJob.job?.company.name}</TableCell>
                 <TableCell className="text-right ">
-                  <Badge className="bg-zinc-600 hover:bg-[#76cde3] cursor-pointer">
-                    {appliedJob.status}
-                  </Badge>
+                <Badge
+                    className={`${
+                      appliedJob?.status === "rejected"
+                        ? "bg-red-500"
+                        : appliedJob?.status === "accepted"
+                        ? "bg-green-600"
+                        : "bg-gray-500"
+                    }`}
+                  >
+                    {" "}
+                    {appliedJob?.status}
+                  </Badge>{" "}
                 </TableCell>
               </TableRow>
             ))

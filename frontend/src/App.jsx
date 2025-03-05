@@ -14,6 +14,7 @@ import CompanySetup from "./components/admincomponent/CompanySetup";
 import AdminJobs from "./components/admincomponent/AdminJobs";
 import PostJob from "./components/admincomponent/PostJob";
 import Applicants from "./components/admincomponent/Applicants";
+import ProtectedRoute from "./components/admincomponent/ProtectedRoute";
 const App = () => {
   // create a router by using react-router-dom
 
@@ -62,27 +63,51 @@ const App = () => {
     // admin
     {
       path: "/admin/companies",
-      element: <Companies />,
+      element: (
+        <ProtectedRoute>
+          <Companies />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/companies/create",
-      element: <CompanyCreate />,
+      element: (
+        <ProtectedRoute>
+          <CompanyCreate />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/companies/:id",
-      element: <CompanySetup />,
+      element: (
+        <ProtectedRoute>
+          <CompanySetup />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/jobs",
-      element: <AdminJobs />,
+      element: (
+        <ProtectedRoute>
+          <AdminJobs />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/jobs/create",
-      element: <PostJob />,
+      element: (
+        <ProtectedRoute>
+          <PostJob />
+        </ProtectedRoute>
+      ),
     },
     {
       path: "/admin/jobs/:id/applicants",
-      element: <Applicants />,
+      element: (
+        <ProtectedRoute>
+          <Applicants />
+        </ProtectedRoute>
+      ),
     },
   ]);
 

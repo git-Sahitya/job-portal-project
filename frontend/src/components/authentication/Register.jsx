@@ -23,7 +23,7 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading } = useSelector((store) => store.auth);
+  const { loading , user } = useSelector((store) => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -68,7 +68,6 @@ function Register() {
       dispatch(setLoading(false));
     }
   }; 
-  const { user } = useSelector((store) => store.auth);
   useEffect(() => {
     if (user) {
       navigate("/");

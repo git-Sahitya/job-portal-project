@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import JobCards from "./JobCards";
+import { useNavigate } from "react-router-dom";
 
 
 const LatestJobs = () => {
@@ -23,7 +24,7 @@ const LatestJobs = () => {
             .slice(0, 6)
             .map((job) =>
               job?._id ? (
-                <JobCards key={job._id} job={job}></JobCards>
+                <JobCards  key={job._id} job={job}></JobCards>
               ) : (
                 <span key={Math.random()}>Invalid Job Data</span>
               )

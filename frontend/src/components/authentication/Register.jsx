@@ -17,13 +17,15 @@ function Register() {
     password: "",
     role: "",
     phoneNumber: "",
+    adharcard: "",
+    pancard: "",
     file: "",
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading , user } = useSelector((store) => store.auth);
+  const { loading, user } = useSelector((store) => store.auth);
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -40,6 +42,8 @@ function Register() {
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("password", input.password);
+    formData.append("pancard", input.pancard);
+    formData.append("adharcard", input.adharcard);
     formData.append("role", input.role);
     formData.append("phoneNumber", input.phoneNumber);
     if (input.file) {
@@ -67,7 +71,7 @@ function Register() {
     } finally {
       dispatch(setLoading(false));
     }
-  }; 
+  };
   useEffect(() => {
     if (user) {
       navigate("/");
@@ -120,6 +124,30 @@ function Register() {
               name="password"
               onChange={changeEventHandler}
               placeholder="Enter your password..."
+            ></Input>
+          </div>
+          {/* End */}
+          {/* For pancard */}
+          <div className="my-2">
+            <Label className="font-semibold">Pan Card</Label>
+            <Input
+              type="text"
+              value={input.pancard}
+              name="pancard"
+              onChange={changeEventHandler}
+              placeholder="Enter your pancard..."
+            ></Input>
+          </div>
+          {/* End */}
+          {/* For adharcard */}
+          <div className="my-2">
+            <Label className="font-semibold">Adhar Card Number</Label>
+            <Input
+              type="text"
+              value={input.adharcard}
+              name="adharcard"
+              onChange={changeEventHandler}
+              placeholder="Enter your Adhar Number..."
             ></Input>
           </div>
           {/* End */}

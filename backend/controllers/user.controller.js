@@ -3,16 +3,23 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloud.js";
-import { log } from "console";
 
 // This code is for signUp register user
 
 export const register = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, password, role } = req.body;
-    //console.log(fullname, email, phoneNumber, password, role);
+    const { fullname, email, phoneNumber, password, role, pancard, adharcard } =
+      req.body;
 
-    if (!fullname || !email || !phoneNumber || !password || !role) {
+    if (
+      !fullname ||
+      !email ||
+      !phoneNumber ||
+      !password ||
+      !role ||
+      !adharcard ||
+      !pancard
+    ) {
       return res.status(400).json({
         message: "Missing required fields!",
         success: false,
@@ -25,6 +32,25 @@ export const register = async (req, res) => {
     if (user) {
       return res.status(400).json({
         message: "Email already exists",
+        success: false,
+      });
+    }
+
+    // for adhar card
+
+    const existingAdharcard = await User.findOne({ adharcard });
+    if (existingAdharcard) {
+      return res.status(400).json({
+        message: "Adhar Number already exists",
+        success: false,
+      });
+    }
+    // for pan card
+    const existingPancard = await User.findOne({ pancard });
+
+    if (existingPancard) {
+      return res.status(400).json({
+        message: "Pan Number already exists",
         success: false,
       });
     }
@@ -50,6 +76,8 @@ export const register = async (req, res) => {
       fullname,
       email,
       phoneNumber,
+      adharcard,
+      pancard,
       password: hashedPassword,
       role,
       profile: {
@@ -94,6 +122,7 @@ export const login = async (req, res) => {
         success: false,
       });
     }
+
     // now checking the password is correct or not
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -123,6 +152,7 @@ export const login = async (req, res) => {
       fullname: user.fullname,
       email: user.email,
       phoneNumber: user.phoneNumber,
+      adharcard: user.adharcard,
       role: user.role,
       profile: user.profile,
     };

@@ -14,6 +14,7 @@ function Login() {
   const [input, setInput] = useState({
     email: "",
     password: "",
+    adharcard : "" ,
     role: "",
   });
 
@@ -95,6 +96,19 @@ function Login() {
               name="password"
               onChange={changeEventHandler}
               placeholder="Enter your password..."
+            ></Input>
+          </div>
+          {/* End */}
+
+          {/* For adharcard */}
+          <div className="my-2">
+            <Label className="font-semibold">Adhar Card Number</Label>
+            <Input
+              type="text"
+              value={input.adharcard}
+              name="adharcard"
+              onChange={changeEventHandler}
+              placeholder="Enter your Adhar Number..."
             ></Input>
           </div>
           {/* End */}

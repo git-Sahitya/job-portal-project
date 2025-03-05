@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 import { RiHomeOfficeFill } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchQuery } from "@/redux/jobSlice";
 import { useNavigate } from "react-router-dom";
+import { setSearchedQuery } from "@/redux/jobSlice";
 
 const Header = () => {
   const [query, setQuery] = useState("");
@@ -12,7 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const searchjobHandler = () => {
-    dispatch(setSearchQuery(query));
+    dispatch(setSearchedQuery(query));
     navigate("/browse");
   };
 

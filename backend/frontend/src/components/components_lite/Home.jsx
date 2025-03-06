@@ -20,7 +20,7 @@ const Home = () => {
     if (user?.role === "Recruiter") {
       navigate("admin/companies")
     }
-   })
+   },[])
    
 
   return (
